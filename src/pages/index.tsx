@@ -55,7 +55,7 @@ export default function Page() {
         <div className="w-[264px]">
           {imageUrl ? (
             <ImageWithLoader
-              src={`http://${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}`}
+              src={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}`}
               alt="card"
               width={264}
               height={419}
