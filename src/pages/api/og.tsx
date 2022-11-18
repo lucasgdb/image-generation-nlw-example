@@ -20,6 +20,7 @@ export default async function handler(req: NextRequest) {
   const robotoBold = await fontBold;
 
   const { searchParams } = req.nextUrl;
+
   const imageUrl = searchParams.get("imageUrl");
   const username = searchParams.get("username");
   const lastname = searchParams.get("lastname");
