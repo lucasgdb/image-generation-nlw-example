@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 import ImageWithLoader from "./components/ImageWithLoader";
-import { Input } from "./components/Input";
+import Input from "./components/Input";
 
 export default function Page() {
   const [username, setUsername] = useState("");
