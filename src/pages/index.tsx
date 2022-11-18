@@ -27,7 +27,7 @@ export default function Page() {
   );
 
   return (
-    <div className="flex justify-center mt-4">
+    <div className="flex flex-col items-center gap-4 mt-4 px-2">
       <main className="flex gap-4 flex-wrap justify-center">
         <div className="flex flex-col gap-2">
           <Input
@@ -52,19 +52,30 @@ export default function Page() {
           />
         </div>
 
-        <div className="w-[264px]">
+        <div className="w-[264px] h-[419px]">
           {imageUrl ? (
             <ImageWithLoader
               src={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}`}
               alt="card"
               width={264}
               height={419}
+              download
             />
           ) : (
             <p className="text-center text-gray-900">Aguardando...</p>
           )}
         </div>
       </main>
+
+      {imageUrl && (
+        <p className="text-gray-500 break-all">
+          URL do card:
+          <br />
+          {`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}${
+            username ? `&username=${username}` : ""
+          }${lastname ? `&lastname=${lastname}` : ""}`}
+        </p>
+      )}
     </div>
   );
 }

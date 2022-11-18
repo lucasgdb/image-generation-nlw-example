@@ -14,9 +14,14 @@ declare global {
   }
 }
 
-export default function ImageWithLoader(
-  props: React.ImgHTMLAttributes<HTMLImageElement>
-) {
+interface ImageWithLoader extends React.ImgHTMLAttributes<HTMLImageElement> {
+  download?: boolean;
+}
+
+export default function ImageWithLoader({
+  download,
+  ...props
+}: ImageWithLoader) {
   const [hidden, setHidden] = useState(true);
 
   const imgRef = useRef<HTMLImageElement>(null);
@@ -44,13 +49,25 @@ export default function ImageWithLoader(
   return (
     <>
       {hidden && <p className="text-gray-900 text-center">Carregando...</p>}
-      <img
-        onLoad={handleLoad}
-        hidden={hidden}
-        ref={imgRef}
-        alt="image"
-        {...props}
-      />
+      {download ? (
+        <a href={props.src} title="Baixar imagem" download="Card">
+          <img
+            onLoad={handleLoad}
+            hidden={hidden}
+            ref={imgRef}
+            alt="image"
+            {...props}
+          />
+        </a>
+      ) : (
+        <img
+          onLoad={handleLoad}
+          hidden={hidden}
+          ref={imgRef}
+          alt="image"
+          {...props}
+        />
+      )}
     </>
   );
 }
