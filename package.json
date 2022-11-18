@@ -1,5 +1,5 @@
 {
-  "name": "og-image-generation-vercel-edge-function",
+  "name": "image-generation-nlw-example",
   "version": "0.1.0",
   "private": true,
   "scripts": {
