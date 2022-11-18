@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### Generated card image example
 
-![Image](./assets/Card.png)
+[![Image](./assets/Card.png)](https://card.lucasbittencourt.dev/api/og?imageUrl=https://i.imgur.com/IV1WLkJ.jpg&username=Lucas&lastname=Bittencourt)
 
 ## Getting Started
 
