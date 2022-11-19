@@ -9,7 +9,7 @@ export default function Input(
   return (
     <input
       {...props}
-      className="px-4 py-2 text-gray-900 border rounded outline-none"
+      className={`px-4 py-2 text-gray-900 border rounded outline-none ${props.className}`}
     />
   );
 }

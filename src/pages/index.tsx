@@ -2,7 +2,9 @@
 
 import Head from "next/head";
 import { useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import { useDebouncedCallback, useDebounce } from "use-debounce";
+import { toast } from "react-toastify";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import ImageWithLoader from "./components/ImageWithLoader";
 import Input from "./components/Input";
@@ -13,10 +15,9 @@ export default function Page() {
   const [imageUrl, setImageUrl] = useState("");
   const [cardType, setCardType] = useState("explorer");
 
-  const handleChangeImageUrl = useDebouncedCallback(
-    (value: string) => setImageUrl(value),
-    500
-  );
+  const [debouncedImageUrl] = useDebounce(imageUrl, 500);
+
+  const handleChangeImageUrl = (value: string) => setImageUrl(value);
 
   const handleChangeUsername = useDebouncedCallback(
     (value: string) => setUsername(value),
@@ -39,20 +40,23 @@ export default function Page() {
     }
   };
 
+  const onCopy = () => toast("Copiado com sucesso!", { type: "success" });
+
   return (
     <>
       <Head>
         <title>OG Image Generation</title>
       </Head>
 
-      <div className="flex flex-col items-center gap-4 mt-4 px-4">
-        <main className="flex gap-4 flex-wrap justify-center">
-          <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4 mt-4 px-4">
+        <main className="flex gap-4 flex-wrap justify-center w-full">
+          <div className="flex flex-col gap-2 w-full max-w-xs">
             <Input
               type="url"
               placeholder="URL da imagem"
-              defaultValue={imageUrl}
+              defaultValue={debouncedImageUrl}
               onChange={(event) => handleChangeImageUrl(event.target.value)}
+              className={!imageUrl ? "border-[#f44336]" : ""}
             />
 
             <Input
@@ -60,6 +64,7 @@ export default function Page() {
               placeholder="Nome"
               defaultValue={username}
               onChange={(event) => handleChangeUsername(event.target.value)}
+              disabled={!imageUrl}
             />
 
             <Input
@@ -67,6 +72,7 @@ export default function Page() {
               placeholder="Sobrenome"
               defaultValue={lastname}
               onChange={(event) => handleChangeLastname(event.target.value)}
+              disabled={!imageUrl}
             />
 
             <div className="flex flex-col gap-2 items-start">
@@ -77,6 +83,7 @@ export default function Page() {
                   id="explorer"
                   checked={cardType === "explorer"}
                   onChange={handleChangeCardType}
+                  disabled={!imageUrl}
                 />
 
                 <label htmlFor="explorer" className="select-none">
@@ -91,6 +98,7 @@ export default function Page() {
                   id="ignite"
                   checked={cardType === "ignite"}
                   onChange={handleChangeCardType}
+                  disabled={!imageUrl}
                 />
 
                 <label htmlFor="ignite" className="select-none">
@@ -100,30 +108,38 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="w-[264px] h-[419px]">
-            {imageUrl ? (
+          <div className="flex items-center justify-center border rounded-xl w-[264px] h-[419px] min-w-[264px]">
+            {debouncedImageUrl ? (
               <ImageWithLoader
-                src={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`}
+                src={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${debouncedImageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`}
                 alt="card"
                 width={264}
                 height={419}
                 download
               />
             ) : (
-              <p className="text-center text-gray-900">Aguardando...</p>
+              <p className="text-center text-gray-600">Aguardando URL...</p>
             )}
           </div>
         </main>
 
-        {imageUrl && (
-          <p className="text-gray-500 break-all">
-            URL do card:
-            <br />
-            {`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}${
+        <hr className="divide-y" />
+
+        <div className="flex">
+          <CopyToClipboard
+            onCopy={onCopy}
+            text={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}${
               username ? `&username=${username}` : ""
             }${lastname ? `&lastname=${lastname}` : ""}&cardType=${cardType}`}
-          </p>
-        )}
+          >
+            <button
+              className="bg-[#4C55D2] p-4 rounded text-white shadow disabled:opacity-30"
+              disabled={!imageUrl}
+            >
+              Copiar URL do Card
+            </button>
+          </CopyToClipboard>
+        </div>
       </div>
     </>
   );
