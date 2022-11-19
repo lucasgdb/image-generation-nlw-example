@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <ToastContainer pauseOnHover={false} />
+      <ToastContainer pauseOnHover={false} position="bottom-center" newestOnTop />
       <Component {...pageProps} />
     </>
   );

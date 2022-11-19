@@ -10,11 +10,28 @@ export default function Document() {
           rel="stylesheet"
         />
 
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
+        />
+
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
       <body>
         <Main />
+
+        <a
+          className="github-fork-ribbon"
+          href="https://github.com/lucasgdb/image-generation-nlw-example"
+          data-ribbon="Fork me on GitHub"
+          title="Fork me on GitHub"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Fork me on GitHub
+        </a>
+
         <NextScript />
       </body>
     </Html>

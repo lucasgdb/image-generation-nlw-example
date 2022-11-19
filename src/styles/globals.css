@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.github-fork-ribbon:before {
+  background-color: #333;
+}

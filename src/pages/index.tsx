@@ -42,6 +42,10 @@ export default function Page() {
 
   const onCopy = () => toast("Copiado com sucesso!", { type: "success" });
 
+  const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}${
+    username ? `&username=${username}` : ""
+  }${lastname ? `&lastname=${lastname}` : ""}&cardType=${cardType}`;
+
   return (
     <>
       <Head>
@@ -132,14 +136,9 @@ export default function Page() {
         <hr className="divide-y" />
 
         <div className="flex">
-          <CopyToClipboard
-            onCopy={onCopy}
-            text={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}${
-              username ? `&username=${username}` : ""
-            }${lastname ? `&lastname=${lastname}` : ""}&cardType=${cardType}`}
-          >
+          <CopyToClipboard onCopy={onCopy} text={cardUrl}>
             <button
-              className="bg-[#4C55D2] p-4 rounded text-white shadow disabled:opacity-30"
+              className="bg-[#4C55D2] px-4 py-2 rounded text-white shadow disabled:opacity-30"
               disabled={!imageUrl}
             >
               Copiar URL do Card
