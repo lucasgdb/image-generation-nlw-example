@@ -86,7 +86,10 @@ export default function Page() {
                   disabled={!imageUrl}
                 />
 
-                <label htmlFor="explorer" className="select-none">
+                <label
+                  htmlFor="explorer"
+                  className={`select-none ${!imageUrl && "opacity-30"}`}
+                >
                   Explorer
                 </label>
               </div>
@@ -101,7 +104,10 @@ export default function Page() {
                   disabled={!imageUrl}
                 />
 
-                <label htmlFor="ignite" className="select-none">
+                <label
+                  htmlFor="ignite"
+                  className={`select-none ${!imageUrl && "opacity-30"}`}
+                >
                   Ignite
                 </label>
               </div>
