@@ -24,13 +24,19 @@ export default async function handler(req: NextRequest) {
   const imageUrl = searchParams.get("imageUrl");
   const username = searchParams.get("username");
   const lastname = searchParams.get("lastname");
+  const cardType = searchParams.get("cardType") ?? "explorer";
+
+  const cardUrl =
+    cardType === "explorer"
+      ? "https://i.imgur.com/etPVtuz.png"
+      : "https://i.imgur.com/XVJkpAi.png";
 
   return new ImageResponse(
     (
       <div
         tw="flex flex-col bg-transparent rounded-xl w-full h-full"
         style={{
-          backgroundImage: "url(https://i.imgur.com/etPVtuz.png)",
+          backgroundImage: `url(${cardUrl})`,
         }}
       >
         <div tw="flex self-center w-[150px] h-[150px] border-solid border-4 border-[#f7dd43] rounded-full overflow-hidden mt-[100px]">

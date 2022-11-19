@@ -11,6 +11,7 @@ export default function Page() {
   const [username, setUsername] = useState("");
   const [lastname, setLastname] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [cardType, setCardType] = useState("explorer");
 
   const handleChangeImageUrl = useDebouncedCallback(
     (value: string) => setImageUrl(value),
@@ -27,6 +28,17 @@ export default function Page() {
     750
   );
 
+  const handleChangeCardType = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.id === "explorer" && event.target.checked) {
+      setCardType("explorer");
+      return;
+    }
+
+    if (event.target.id === "ignite" && event.target.checked) {
+      setCardType("ignite");
+    }
+  };
+
   return (
     <>
       <Head>
@@ -37,7 +49,6 @@ export default function Page() {
         <main className="flex gap-4 flex-wrap justify-center">
           <div className="flex flex-col gap-2">
             <Input
-              name="imageUrl"
               type="url"
               placeholder="URL da imagem"
               defaultValue={imageUrl}
@@ -45,7 +56,6 @@ export default function Page() {
             />
 
             <Input
-              name="username"
               type="text"
               placeholder="Nome"
               defaultValue={username}
@@ -53,18 +63,47 @@ export default function Page() {
             />
 
             <Input
-              name="lastname"
               type="text"
               placeholder="Sobrenome"
               defaultValue={lastname}
               onChange={(event) => handleChangeLastname(event.target.value)}
             />
+
+            <div className="flex flex-col gap-2 items-start">
+              <div className="flex gap-2 items-center">
+                <input
+                  type="radio"
+                  name="cardType"
+                  id="explorer"
+                  checked={cardType === "explorer"}
+                  onChange={handleChangeCardType}
+                />
+
+                <label htmlFor="explorer" className="select-none">
+                  Explorer
+                </label>
+              </div>
+
+              <div className="flex gap-2 items-center">
+                <input
+                  type="radio"
+                  name="cardType"
+                  id="ignite"
+                  checked={cardType === "ignite"}
+                  onChange={handleChangeCardType}
+                />
+
+                <label htmlFor="ignite" className="select-none">
+                  Ignite
+                </label>
+              </div>
+            </div>
           </div>
 
           <div className="w-[264px] h-[419px]">
             {imageUrl ? (
               <ImageWithLoader
-                src={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}`}
+                src={`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`}
                 alt="card"
                 width={264}
                 height={419}
@@ -82,7 +121,7 @@ export default function Page() {
             <br />
             {`${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}${
               username ? `&username=${username}` : ""
-            }${lastname ? `&lastname=${lastname}` : ""}`}
+            }${lastname ? `&lastname=${lastname}` : ""}&cardType=${cardType}`}
           </p>
         )}
       </div>
