@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
-import CopyButton from "../UI/atoms/CopyButton";
 
+import CopyButton from "../UI/atoms/CopyButton";
 import Input from "../UI/atoms/Input";
 import Radio from "../UI/atoms/Radio";
 import Card from "../UI/molecules/Card";
@@ -37,12 +37,25 @@ export default function URL() {
     }
   };
 
-  const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${debouncedImageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`;
+  const getCardUrl = () => {
+    if (!imageUrl && cardType === "explorer") {
+      return "/bg-explorer.png";
+    }
+
+    if (!imageUrl && cardType === "ignite") {
+      return "/bg-explorer.png";
+    }
+
+    const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${debouncedImageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`;
+    return cardUrl;
+  };
+
+  const cardUrl = getCardUrl();
 
   return (
     <div className="flex flex-col gap-3 w-full">
       <div className="flex justify-center">
-      <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
               <Input

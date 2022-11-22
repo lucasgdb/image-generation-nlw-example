@@ -13,7 +13,9 @@ export default function Radio({ label, ...props }: Props) {
     <div className="flex gap-2">
       <input
         type="radio"
-        className={`cursor-pointer ${props.className ?? ""}`}
+        className={`${props.disabled ? "" : "cursor-pointer"} ${
+          props.className ?? ""
+        }`}
         {...props}
       />
 

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
+import { useMounted } from "../../../../hooks/useMounted";
 
 declare global {
   interface Window {
@@ -18,10 +19,15 @@ export default function ImageWithLoader(
   props: React.ImgHTMLAttributes<HTMLImageElement>
 ) {
   const [hidden, setHidden] = useState(true);
+  const mounted = useMounted();
 
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    if (!mounted) {
+      return;
+    }
+
     const MutationObserver =
       window.MutationObserver ||
       window.WebKitMutationObserver ||
@@ -37,24 +43,27 @@ export default function ImageWithLoader(
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [mounted]);
 
   const handleLoad = () => setHidden(false);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>
       {hidden && <p className="text-gray-900 text-center">Carregando...</p>}
 
-      <a href={props.src} title="Baixar imagem" download="Card" hidden={hidden}>
-        <img
-          onLoad={handleLoad}
-          ref={imgRef}
-          width={264}
-          height={419}
-          alt="card"
-          {...props}
-        />
-      </a>
+      <img
+        onLoad={handleLoad}
+        hidden={hidden}
+        ref={imgRef}
+        width={264}
+        height={419}
+        alt="card"
+        {...props}
+      />
     </>
   );
 }
