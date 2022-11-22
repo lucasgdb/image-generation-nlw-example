@@ -21,10 +21,40 @@ export default async function handler(req: NextRequest) {
 
   const { searchParams } = req.nextUrl;
 
-  const imageUrl = searchParams.get("imageUrl");
-  const username = searchParams.get("username");
-  const lastname = searchParams.get("lastname");
+  const githubUsername = searchParams.get("githubUsername");
   const cardType = searchParams.get("cardType") ?? "explorer";
+
+  const getContent = async () => {
+    if (githubUsername) {
+      const response = await fetch(
+        `https://api.github.com/users/${githubUsername}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            Accept: "application/vnd.github+json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      const userExists = data?.message?.toLowerCase() !== "not found";
+
+      return {
+        imageUrl: data.avatar_url ?? `${process.env.NEXT_PUBLIC_URL}/404.png`,
+        username: data.name ?? "",
+        lastname: userExists ? githubUsername : "",
+      };
+    }
+
+    const imageUrl = searchParams.get("imageUrl") ?? "";
+    const username = searchParams.get("username") ?? "";
+    const lastname = searchParams.get("lastname") ?? "";
+
+    return { imageUrl, username, lastname };
+  };
+
+  const { imageUrl, username, lastname } = await getContent();
 
   const cardUrl =
     cardType === "explorer"
