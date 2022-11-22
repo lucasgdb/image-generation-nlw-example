@@ -8,7 +8,7 @@ import Github from "./components/templates/Github";
 import Radio from "./components/UI/atoms/Radio";
 
 export default function Page() {
-  const [method, setMethod] = useState<"url" | "github">("url");
+  const [method, setMethod] = useState<"url" | "github">("github");
 
   const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.id === "url" && event.target.checked) {
@@ -31,18 +31,18 @@ export default function Page() {
         <div className="flex gap-3">
           <Radio
             name="method"
-            id="url"
-            checked={method === "url"}
-            onChange={handleChangeMethod}
-            label="URL"
-          />
-
-          <Radio
-            name="method"
             id="github"
             checked={method === "github"}
             onChange={handleChangeMethod}
             label="Github"
+          />
+
+          <Radio
+            name="method"
+            id="url"
+            checked={method === "url"}
+            onChange={handleChangeMethod}
+            label="URL"
           />
         </div>
 
