@@ -58,7 +58,6 @@ export default function Github() {
                 id="explorer"
                 checked={cardType === "explorer"}
                 onChange={handleChangeCardType}
-                disabled={!username}
                 label="Explorer"
               />
 
@@ -67,7 +66,6 @@ export default function Github() {
                 id="ignite"
                 checked={cardType === "ignite"}
                 onChange={handleChangeCardType}
-                disabled={!username}
                 label="Ignite"
               />
             </div>

@@ -13,18 +13,11 @@ export default function Radio({ label, ...props }: Props) {
     <div className="flex gap-2">
       <input
         type="radio"
-        className={`${props.disabled ? "" : "cursor-pointer"} ${
-          props.className ?? ""
-        }`}
+        className={`cursor-pointer ${props.className ?? ""}`}
         {...props}
       />
 
-      <label
-        htmlFor={props.id}
-        className={`select-none ${
-          props.disabled ? "opacity-30" : "cursor-pointer"
-        }`}
-      >
+      <label htmlFor={props.id} className="select-none cursor-pointer">
         {label}
       </label>
     </div>

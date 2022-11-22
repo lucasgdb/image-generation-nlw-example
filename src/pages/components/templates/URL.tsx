@@ -89,7 +89,6 @@ export default function URL() {
                 id="explorer"
                 checked={cardType === "explorer"}
                 onChange={handleChangeCardType}
-                disabled={!imageUrl}
                 label="Explorer"
               />
 
@@ -98,7 +97,6 @@ export default function URL() {
                 id="ignite"
                 checked={cardType === "ignite"}
                 onChange={handleChangeCardType}
-                disabled={!imageUrl}
                 label="Ignite"
               />
             </div>
