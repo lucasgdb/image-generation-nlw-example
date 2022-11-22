@@ -43,7 +43,7 @@ export default function URL() {
     }
 
     if (!imageUrl && cardType === "ignite") {
-      return "/bg-explorer.png";
+      return "/bg-ignite.png";
     }
 
     const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${debouncedImageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`;

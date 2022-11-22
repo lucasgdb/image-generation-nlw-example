@@ -31,7 +31,7 @@ export default function Github() {
     }
 
     if (!username && cardType === "ignite") {
-      return "/bg-explorer.png";
+      return "/bg-ignite.png";
     }
 
     const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?githubUsername=${debouncedUsername}&cardType=${cardType}`;
