@@ -38,11 +38,11 @@ export default function URL() {
   };
 
   const getCardUrl = () => {
-    if (!imageUrl && cardType === "explorer") {
+    if (!imageUrl && !username && !lastname && cardType === "explorer") {
       return "/bg-explorer.png";
     }
 
-    if (!imageUrl && cardType === "ignite") {
+    if (!imageUrl && !username && !lastname && cardType === "ignite") {
       return "/bg-ignite.png";
     }
 
@@ -63,7 +63,6 @@ export default function URL() {
                 placeholder="URL da imagem"
                 defaultValue={imageUrl}
                 onChange={(event) => handleChangeImageUrl(event.target.value)}
-                className={!imageUrl ? "border-[#f44336]" : ""}
               />
 
               <Input
@@ -71,7 +70,6 @@ export default function URL() {
                 placeholder="Nome"
                 defaultValue={username}
                 onChange={(event) => handleChangeUsername(event.target.value)}
-                disabled={!imageUrl}
               />
 
               <Input
@@ -79,13 +77,12 @@ export default function URL() {
                 placeholder="Sobrenome"
                 defaultValue={lastname}
                 onChange={(event) => handleChangeLastname(event.target.value)}
-                disabled={!imageUrl}
               />
             </div>
 
             <div className="flex flex-col gap-2 items-start">
               <Radio
-                name="UrlCardType"
+                name="cardType"
                 id="explorer"
                 checked={cardType === "explorer"}
                 onChange={handleChangeCardType}
@@ -93,7 +90,7 @@ export default function URL() {
               />
 
               <Radio
-                name="UrlCardType"
+                name="cardType"
                 id="ignite"
                 checked={cardType === "ignite"}
                 onChange={handleChangeCardType}
