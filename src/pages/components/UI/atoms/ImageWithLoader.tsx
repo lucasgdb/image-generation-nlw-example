@@ -19,6 +19,7 @@ export default function ImageWithLoader(
   props: React.ImgHTMLAttributes<HTMLImageElement>
 ) {
   const [hidden, setHidden] = useState(true);
+  const [error, setError] = useState(false);
   const mounted = useMounted();
 
   const imgRef = useRef<HTMLImageElement>(null);
@@ -45,7 +46,12 @@ export default function ImageWithLoader(
     return () => observer.disconnect();
   }, [mounted]);
 
-  const handleLoad = () => setHidden(false);
+  const handleLoad = () => {
+    setHidden(false);
+    setError(false);
+  };
+
+  const handleError = () => setError(true);
 
   if (!mounted) {
     return null;
@@ -53,10 +59,15 @@ export default function ImageWithLoader(
 
   return (
     <>
-      {hidden && <p className="text-gray-900 text-center">Carregando...</p>}
+      {error ? (
+        <p className="text-red-500 text-center">Imagem inválida!</p>
+      ) : (
+        hidden && <p className="text-gray-900 text-center">Carregando...</p>
+      )}
 
       <img
         onLoad={handleLoad}
+        onError={handleError}
         hidden={hidden}
         ref={imgRef}
         width={264}
