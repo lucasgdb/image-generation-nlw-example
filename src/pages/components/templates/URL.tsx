@@ -12,13 +12,15 @@ export default function URL() {
   const [imageUrl, setImageUrl] = useState('');
   const [cardType, setCardType] = useState<'explorer' | 'ignite'>('explorer');
 
-  const [debouncedImageUrl] = useDebounce(imageUrl, 500, {});
+  const [debouncedImageUrl] = useDebounce(imageUrl, 500);
+  const [debouncedUsername] = useDebounce(username, 500);
+  const [debouncedLastname] = useDebounce(lastname, 500);
 
   const handleChangeImageUrl = (value: string) => setImageUrl(value);
 
-  const handleChangeUsername = useDebouncedCallback((value: string) => setUsername(value), 750);
+  const handleChangeUsername = useDebouncedCallback((value: string) => setUsername(value), 500);
 
-  const handleChangeLastname = useDebouncedCallback((value: string) => setLastname(value), 750);
+  const handleChangeLastname = useDebouncedCallback((value: string) => setLastname(value), 500);
 
   const handleChangeCardType = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.id === 'explorer' && event.target.checked) {
@@ -32,15 +34,15 @@ export default function URL() {
   };
 
   const getCardUrl = () => {
-    if (!imageUrl && !username && !lastname && cardType === 'explorer') {
+    if (!debouncedImageUrl && !debouncedUsername && !debouncedLastname && cardType === 'explorer') {
       return '/bg-explorer.png';
     }
 
-    if (!imageUrl && !username && !lastname && cardType === 'ignite') {
+    if (!debouncedImageUrl && !debouncedUsername && !debouncedLastname && cardType === 'ignite') {
       return '/bg-ignite.png';
     }
 
-    const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${debouncedImageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`;
+    const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`;
     return cardUrl;
   };
 

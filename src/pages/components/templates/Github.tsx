@@ -26,15 +26,15 @@ export default function Github() {
   };
 
   const getCardUrl = () => {
-    if (!username && cardType === 'explorer') {
+    if (!debouncedUsername && cardType === 'explorer') {
       return '/bg-explorer.png';
     }
 
-    if (!username && cardType === 'ignite') {
+    if (!debouncedUsername && cardType === 'ignite') {
       return '/bg-ignite.png';
     }
 
-    const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?githubUsername=${debouncedUsername}&cardType=${cardType}`;
+    const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?githubUsername=${username}&cardType=${cardType}`;
     return cardUrl;
   };
 
