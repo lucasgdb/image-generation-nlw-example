@@ -10,10 +10,7 @@
     "format": "prettier --ignore-path .eslintignore --write --check ."
   },
   "dependencies": {
-    "@types/node": "18.11.9",
-    "@types/react": "18.0.25",
-    "@types/react-dom": "18.0.9",
-    "@vercel/og": "^0.0.20",
+    "@vercel/og": "^0.0.21",
     "github-fork-ribbon-css": "^0.2.3",
     "next": "13.0.4",
     "react": "18.2.0",
@@ -23,6 +20,9 @@
     "use-debounce": "^8.0.4"
   },
   "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "autoprefixer": "^10.4.13",
     "eslint": "8.28.0",
