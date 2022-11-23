@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useRef, useState } from "react";
-import { useMounted } from "../../../../hooks/useMounted";
+import { useEffect, useRef, useState } from 'react';
+import { useMounted } from '../../../../hooks/useMounted';
 
 declare global {
   interface Window {
@@ -15,9 +15,7 @@ declare global {
   }
 }
 
-export default function ImageWithLoader(
-  props: React.ImgHTMLAttributes<HTMLImageElement>
-) {
+export default function ImageWithLoader(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   const [hidden, setHidden] = useState(true);
   const [error, setError] = useState(false);
   const mounted = useMounted();
@@ -29,10 +27,7 @@ export default function ImageWithLoader(
       return;
     }
 
-    const MutationObserver =
-      window.MutationObserver ||
-      window.WebKitMutationObserver ||
-      window.MozMutationObserver;
+    const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
     const handleChangeAvatar = () => setHidden(true);
 
@@ -40,7 +35,7 @@ export default function ImageWithLoader(
 
     observer.observe(imgRef.current!, {
       attributes: true,
-      attributeFilter: ["src"],
+      attributeFilter: ['src'],
     });
 
     return () => observer.disconnect();

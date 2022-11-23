@@ -1,49 +1,43 @@
-import { useState } from "react";
-import { useDebounce, useDebouncedCallback } from "use-debounce";
+import { useState } from 'react';
+import { useDebounce, useDebouncedCallback } from 'use-debounce';
 
-import CopyButton from "../UI/atoms/CopyButton";
-import Input from "../UI/atoms/Input";
-import Radio from "../UI/atoms/Radio";
-import Card from "../UI/molecules/Card";
+import CopyButton from '../UI/atoms/CopyButton';
+import Input from '../UI/atoms/Input';
+import Radio from '../UI/atoms/Radio';
+import Card from '../UI/molecules/Card';
 
 export default function URL() {
-  const [username, setUsername] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [cardType, setCardType] = useState<"explorer" | "ignite">("explorer");
+  const [username, setUsername] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [cardType, setCardType] = useState<'explorer' | 'ignite'>('explorer');
 
   const [debouncedImageUrl] = useDebounce(imageUrl, 500, {});
 
   const handleChangeImageUrl = (value: string) => setImageUrl(value);
 
-  const handleChangeUsername = useDebouncedCallback(
-    (value: string) => setUsername(value),
-    750
-  );
+  const handleChangeUsername = useDebouncedCallback((value: string) => setUsername(value), 750);
 
-  const handleChangeLastname = useDebouncedCallback(
-    (value: string) => setLastname(value),
-    750
-  );
+  const handleChangeLastname = useDebouncedCallback((value: string) => setLastname(value), 750);
 
   const handleChangeCardType = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.id === "explorer" && event.target.checked) {
-      setCardType("explorer");
+    if (event.target.id === 'explorer' && event.target.checked) {
+      setCardType('explorer');
       return;
     }
 
-    if (event.target.id === "ignite" && event.target.checked) {
-      setCardType("ignite");
+    if (event.target.id === 'ignite' && event.target.checked) {
+      setCardType('ignite');
     }
   };
 
   const getCardUrl = () => {
-    if (!imageUrl && !username && !lastname && cardType === "explorer") {
-      return "/bg-explorer.png";
+    if (!imageUrl && !username && !lastname && cardType === 'explorer') {
+      return '/bg-explorer.png';
     }
 
-    if (!imageUrl && !username && !lastname && cardType === "ignite") {
-      return "/bg-ignite.png";
+    if (!imageUrl && !username && !lastname && cardType === 'ignite') {
+      return '/bg-ignite.png';
     }
 
     const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${debouncedImageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`;
@@ -84,7 +78,7 @@ export default function URL() {
               <Radio
                 name="cardType"
                 id="explorer"
-                checked={cardType === "explorer"}
+                checked={cardType === 'explorer'}
                 onChange={handleChangeCardType}
                 label="Explorer"
               />
@@ -92,7 +86,7 @@ export default function URL() {
               <Radio
                 name="cardType"
                 id="ignite"
-                checked={cardType === "ignite"}
+                checked={cardType === 'ignite'}
                 onChange={handleChangeCardType}
                 label="Ignite"
               />

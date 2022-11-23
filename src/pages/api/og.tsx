@@ -1,19 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ImageResponse } from "@vercel/og";
-import { NextRequest } from "next/server";
+import { ImageResponse } from '@vercel/og';
+import { NextRequest } from 'next/server';
 
 export const config = {
-  runtime: "experimental-edge",
+  runtime: 'experimental-edge',
 };
 
-const fontRegular = fetch(
-  new URL("../../assets/Roboto-Regular.ttf", import.meta.url)
-).then((res) => res.arrayBuffer());
+const fontRegular = fetch(new URL('../../assets/Roboto-Regular.ttf', import.meta.url)).then((res) => res.arrayBuffer());
 
-const fontBold = fetch(
-  new URL("../../assets/Roboto-Bold.ttf", import.meta.url)
-).then((res) => res.arrayBuffer());
+const fontBold = fetch(new URL('../../assets/Roboto-Bold.ttf', import.meta.url)).then((res) => res.arrayBuffer());
 
 export default async function handler(req: NextRequest) {
   const robotoRegular = await fontRegular;
@@ -21,45 +17,39 @@ export default async function handler(req: NextRequest) {
 
   const { searchParams } = req.nextUrl;
 
-  const githubUsername = searchParams.get("githubUsername");
-  const cardType = searchParams.get("cardType") ?? "explorer";
+  const githubUsername = searchParams.get('githubUsername');
+  const cardType = searchParams.get('cardType') ?? 'explorer';
 
   const getContent = async () => {
     if (githubUsername) {
-      const response = await fetch(
-        `https://api.github.com/users/${githubUsername}`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-            Accept: "application/vnd.github+json",
-          },
-        }
-      );
+      const response = await fetch(`https://api.github.com/users/${githubUsername}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github+json',
+        },
+      });
 
       const data = await response.json();
 
-      const userExists = data?.message?.toLowerCase() !== "not found";
+      const userExists = data?.message?.toLowerCase() !== 'not found';
 
       return {
         imageUrl: data.avatar_url ?? `${process.env.NEXT_PUBLIC_URL}/404.png`,
-        username: data.name ?? "",
-        lastname: userExists ? githubUsername : "",
+        username: data.name ?? '',
+        lastname: userExists ? githubUsername : '',
       };
     }
 
-    const imageUrl = searchParams.get("imageUrl") ?? "";
-    const username = searchParams.get("username") ?? "";
-    const lastname = searchParams.get("lastname") ?? "";
+    const imageUrl = searchParams.get('imageUrl') ?? '';
+    const username = searchParams.get('username') ?? '';
+    const lastname = searchParams.get('lastname') ?? '';
 
     return { imageUrl, username, lastname };
   };
 
   const { imageUrl, username, lastname } = await getContent();
 
-  const cardUrl =
-    cardType === "explorer"
-      ? "https://i.imgur.com/etPVtuz.png"
-      : "https://i.imgur.com/XVJkpAi.png";
+  const cardUrl = cardType === 'explorer' ? 'https://i.imgur.com/etPVtuz.png' : 'https://i.imgur.com/XVJkpAi.png';
 
   return new ImageResponse(
     (
@@ -75,19 +65,13 @@ export default async function handler(req: NextRequest) {
 
         <div tw="flex flex-col mt-[98px] ml-6">
           {username && (
-            <p
-              tw="m-0 text-white text-[18px]"
-              style={{ fontFamily: '"Roboto-Bold"' }}
-            >
+            <p tw="m-0 text-white text-[18px]" style={{ fontFamily: '"Roboto-Bold"' }}>
               {username}
             </p>
           )}
 
           {lastname && (
-            <p
-              tw="m-0 mt-1 text-[14px] text-white"
-              style={{ fontFamily: '"Roboto-Regular"' }}
-            >
+            <p tw="m-0 mt-1 text-[14px] text-white" style={{ fontFamily: '"Roboto-Regular"' }}>
               {lastname}
             </p>
           )}
@@ -99,14 +83,14 @@ export default async function handler(req: NextRequest) {
       height: 419,
       fonts: [
         {
-          name: "Roboto-Regular",
+          name: 'Roboto-Regular',
           data: robotoRegular,
-          style: "normal",
+          style: 'normal',
         },
         {
-          name: "Roboto-Bold",
+          name: 'Roboto-Bold',
           data: robotoBold,
-          style: "normal",
+          style: 'normal',
         },
       ],
     }

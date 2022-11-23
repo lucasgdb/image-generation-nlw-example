@@ -1,4 +1,4 @@
-import ImageWithLoader from "../atoms/ImageWithLoader";
+import ImageWithLoader from '../atoms/ImageWithLoader';
 
 interface Props {
   cardUrl: string;
