@@ -16,9 +16,10 @@ declare global {
 }
 
 export default function ImageWithLoader(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+  const mounted = useMounted();
+
   const [hidden, setHidden] = useState(true);
   const [error, setError] = useState(false);
-  const mounted = useMounted();
 
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -55,9 +56,15 @@ export default function ImageWithLoader(props: React.ImgHTMLAttributes<HTMLImage
   return (
     <>
       {error ? (
-        <p className="text-red-500 text-center">Imagem inválida!</p>
+        <div className="flex justify-center items-center w-full h-full border rounded-xl">
+          <p className="text-red-500 text-center">Imagem inválida!</p>
+        </div>
       ) : (
-        hidden && <p className="text-gray-900 text-center">Carregando...</p>
+        hidden && (
+          <div className="flex justify-center items-center w-full h-full border rounded-xl">
+            <p className="text-gray-900 text-center">Carregando imagem...</p>
+          </div>
+        )
       )}
 
       <img

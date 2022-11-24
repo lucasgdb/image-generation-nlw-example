@@ -24,7 +24,7 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>OG Image Generation</title>
+        <title>NLW | OG Image Generation</title>
       </Head>
 
       <h1 className="text-gray-900 font-bold text-2xl text-center mt-4">OG Image Generation</h1>

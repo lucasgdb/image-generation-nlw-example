@@ -25,20 +25,7 @@ export default function Github() {
     }
   };
 
-  const getCardUrl = () => {
-    if (!debouncedUsername && cardType === 'explorer') {
-      return '/bg-explorer.png';
-    }
-
-    if (!debouncedUsername && cardType === 'ignite') {
-      return '/bg-ignite.png';
-    }
-
-    const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?githubUsername=${username}&cardType=${cardType}`;
-    return cardUrl;
-  };
-
-  const cardUrl = getCardUrl();
+  const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?githubUsername=${debouncedUsername}&cardType=${cardType}`;
 
   return (
     <div className="flex flex-col gap-3 w-full">

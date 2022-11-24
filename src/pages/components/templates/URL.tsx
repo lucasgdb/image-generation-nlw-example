@@ -33,20 +33,7 @@ export default function URL() {
     }
   };
 
-  const getCardUrl = () => {
-    if (!debouncedImageUrl && !debouncedUsername && !debouncedLastname && cardType === 'explorer') {
-      return '/bg-explorer.png';
-    }
-
-    if (!debouncedImageUrl && !debouncedUsername && !debouncedLastname && cardType === 'ignite') {
-      return '/bg-ignite.png';
-    }
-
-    const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${imageUrl}&username=${username}&lastname=${lastname}&cardType=${cardType}`;
-    return cardUrl;
-  };
-
-  const cardUrl = getCardUrl();
+  const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?imageUrl=${debouncedImageUrl}&username=${debouncedUsername}&lastname=${debouncedLastname}&cardType=${cardType}`;
 
   return (
     <div className="flex flex-col gap-4 w-full">
