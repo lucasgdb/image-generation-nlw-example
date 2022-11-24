@@ -27,10 +27,13 @@ export default function Page() {
         <title>OG Image Generation</title>
       </Head>
 
-      <main className="flex flex-col gap-4 items-center px-4 pt-4 pb-2">
-        <div className="flex gap-3">
-          <Radio name="method" id="github" checked={method === 'github'} onChange={handleChangeMethod} label="Github" />
+      <h1 className="text-gray-900 font-bold text-2xl text-center mt-4">OG Image Generation</h1>
 
+      <main className="flex flex-col gap-4 items-center mt-4 px-4 pb-4">
+        <div className="flex gap-3">
+          <p className="m-0">Tipo:</p>
+
+          <Radio name="method" id="github" checked={method === 'github'} onChange={handleChangeMethod} label="Github" />
           <Radio name="method" id="url" checked={method === 'url'} onChange={handleChangeMethod} label="URL" />
         </div>
 

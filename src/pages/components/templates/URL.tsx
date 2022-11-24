@@ -49,10 +49,10 @@ export default function URL() {
   const cardUrl = getCardUrl();
 
   return (
-    <div className="flex flex-col gap-3 w-full">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex justify-center">
         <div className="flex flex-wrap justify-center gap-4">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2">
               <Input
                 type="url"
@@ -76,22 +76,26 @@ export default function URL() {
               />
             </div>
 
-            <div className="flex flex-col gap-2 items-start">
-              <Radio
-                name="cardType"
-                id="explorer"
-                checked={cardType === 'explorer'}
-                onChange={handleChangeCardType}
-                label="Explorer"
-              />
+            <div className="flex flex-col gap-1">
+              <p>Card:</p>
 
-              <Radio
-                name="cardType"
-                id="ignite"
-                checked={cardType === 'ignite'}
-                onChange={handleChangeCardType}
-                label="Ignite"
-              />
+              <div className="flex flex-col gap-2">
+                <Radio
+                  name="cardType"
+                  id="explorer"
+                  checked={cardType === 'explorer'}
+                  onChange={handleChangeCardType}
+                  label="Explorer"
+                />
+
+                <Radio
+                  name="cardType"
+                  id="ignite"
+                  checked={cardType === 'ignite'}
+                  onChange={handleChangeCardType}
+                  label="Ignite"
+                />
+              </div>
             </div>
           </div>
 
@@ -101,7 +105,7 @@ export default function URL() {
 
       <hr className="divide-y" />
 
-      <div className="flex">
+      <div className="flex justify-center">
         <CopyButton text={cardUrl} disabled={!imageUrl} />
       </div>
     </div>
