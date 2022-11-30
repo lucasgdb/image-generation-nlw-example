@@ -28,7 +28,7 @@ export default function Github() {
   const cardUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?githubUsername=${debouncedUsername}&cardType=${cardType}`;
 
   return (
-    <div className="flex flex-col gap-3 w-full">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex justify-center">
         <div className="flex flex-wrap justify-center gap-4">
           <div className="flex flex-col gap-3">
@@ -68,7 +68,7 @@ export default function Github() {
 
       <hr className="divide-y" />
 
-      <div className="flex">
+      <div className="flex justify-center">
         <CopyButton text={cardUrl} disabled={!username} />
       </div>
     </div>

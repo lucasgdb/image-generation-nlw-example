@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from 'react';
 
-import { useMounted } from '../../../hooks/useMounted';
+import { useMounted } from '../../hooks/useMounted';
 
 declare global {
   interface Window {
