@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import URL from './components/templates/URL';
 import Github from './components/templates/Github';
-import Radio from './components/UI/atoms/Radio';
+import Radio from './components/atoms/Radio';
 
 export default function Page() {
   const [method, setMethod] = useState<'url' | 'github'>('github');

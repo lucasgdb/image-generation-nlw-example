@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDebounce, useDebouncedCallback } from 'use-debounce';
 
-import CopyButton from '../UI/atoms/CopyButton';
-import Input from '../UI/atoms/Input';
-import Radio from '../UI/atoms/Radio';
-import Card from '../UI/molecules/Card';
+import CopyButton from '../atoms/CopyButton';
+import Input from '../atoms/Input';
+import Radio from '../atoms/Radio';
+import Card from '../molecules/Card';
 
 export default function URL() {
   const [username, setUsername] = useState('');
